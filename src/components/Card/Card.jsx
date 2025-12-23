@@ -31,6 +31,13 @@ function Card({
           : `${theme.spacing(2)}px 0px`,
         transition: 'all 0.2s ease-out',
         width: '100%',
+          height: '100%',
+          position: 'relative',
+
+          // ДОДАЄМО ЛОГІКУ ХОВЕРА ТУТ:
+          '&:hover .delete-btn': {
+              opacity: 1,
+          },
       }}
     >
       {children}
