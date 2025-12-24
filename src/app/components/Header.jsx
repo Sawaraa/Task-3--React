@@ -60,6 +60,24 @@ const getClasses = createUseStyles((theme) => ({
   userNameMobile: {
     maxWidth: '110px',
   },
+  //my style
+  bookLink: {
+    fontSize: '1.5rem',
+    fontWeight: 600,
+    fontFamily: "inherit",
+    textDecoration: 'none',
+    color: '#16bb00',
+    display: 'flex',
+    alignItems: 'center',
+    padding: `${theme.spacing(1)}px ${theme.spacing(2)}px`,
+    borderRadius: '8px',
+        transition: 'background-color 0.2s ease',
+    '&:hover': {
+      backgroundColor: 'rgba(0, 0, 0, 0.08)',
+      cursor: 'pointer',
+    },
+  },
+
 }));
 
 const interfaceLagsTranslate = {
@@ -143,6 +161,13 @@ function Header({
                 <Logo compact={isMobile} />
               </div>
             </Hover>
+          </Link>
+
+          {/*Link Book*/}
+          <Link
+              to={{pathname: `${pagesURLs[pages.bookPage]}`, }}
+          >
+            <div className={classes.bookLink}>Book</div>
           </Link>
         </div>
         <div className={classes.toolBarContainerRight}>

@@ -25,6 +25,8 @@ import Header from '../components/Header';
 import IntlProvider from '../components/IntlProvider';
 import MissedPage from '../components/MissedPage';
 import SearchParamsConfigurator from '../components/SearchParamsConfigurator';
+import Book from "../../pages/book/container/Book";
+import BookDetails from "../../pages/bookDetailsPage/container/BookDetails";
 
 function App() {
   const dispatch = useDispatch();
@@ -71,6 +73,14 @@ function App() {
                 )}
                 {!isFetchingUser && (
                   <Routes>
+                    <Route
+                        element={<Book />}
+                        path={`${pageURLs[pages.bookPage]}`}
+                    />
+                    <Route
+                        element={<BookDetails />}
+                        path={`${pageURLs[pages.bookDetailsPage]}/:id`}
+                    />
                     <Route
                       element={<DefaultPage />}
                       path={`${pageURLs[pages.defaultPage]}`}

@@ -15,6 +15,8 @@ const colors = {
   primary: 'primary',
   secondary: 'secondary',
   tertiary: 'tertiary',
+  black: 'black',
+  gray: 'gray',
   error: 'error',
   info: 'info',
   success: 'success',
@@ -26,7 +28,7 @@ const variants = {
   caption: 'caption',
   default: 'default',
   subTitle: 'subTitle',
-  title: 'title'
+  title: 'title',
 };
 
 const Typography = ({
