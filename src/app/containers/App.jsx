@@ -14,6 +14,8 @@ import AuthoritiesProvider from 'misc/providers/AuthoritiesProvider';
 import DefaultPage from 'pageProviders/Default';
 import Loading from 'components/Loading';
 import LoginPage from 'pageProviders/Login';
+import BooksPage from 'pageProviders/Books';
+import FormCreate from "../../pageProviders/FormCreate";
 import PageContainer from 'pageProviders/components/PageContainer';
 import pageURLs from 'constants/pagesURLs';
 import SecretPage from 'pageProviders/Secret';
@@ -25,6 +27,7 @@ import Header from '../components/Header';
 import IntlProvider from '../components/IntlProvider';
 import MissedPage from '../components/MissedPage';
 import SearchParamsConfigurator from '../components/SearchParamsConfigurator';
+
 
 function App() {
   const dispatch = useDispatch();
@@ -71,6 +74,14 @@ function App() {
                 )}
                 {!isFetchingUser && (
                   <Routes>
+                    <Route
+                        element={<BooksPage/>}
+                        path={`${pageURLs[pages.books]}`}
+                    />
+                    <Route
+                        element={<FormCreate/>}
+                        path={`${pageURLs[pages.formCreate]}`}
+                    />
                     <Route
                       element={<DefaultPage />}
                       path={`${pageURLs[pages.defaultPage]}`}
