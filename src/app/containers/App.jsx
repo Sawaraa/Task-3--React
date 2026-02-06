@@ -14,6 +14,8 @@ import AuthoritiesProvider from 'misc/providers/AuthoritiesProvider';
 import DefaultPage from 'pageProviders/Default';
 import Loading from 'components/Loading';
 import LoginPage from 'pageProviders/Login';
+import BooksPage from 'pageProviders/Books';
+import FormCreate from "../../pageProviders/FormCreate";
 import PageContainer from 'pageProviders/components/PageContainer';
 import pageURLs from 'constants/pagesURLs';
 import SecretPage from 'pageProviders/Secret';
@@ -25,8 +27,7 @@ import Header from '../components/Header';
 import IntlProvider from '../components/IntlProvider';
 import MissedPage from '../components/MissedPage';
 import SearchParamsConfigurator from '../components/SearchParamsConfigurator';
-import Book from "../../pages/book/container/Book";
-import BookDetails from "../../pages/bookDetailsPage/container/BookDetails";
+
 
 function App() {
   const dispatch = useDispatch();
@@ -74,12 +75,12 @@ function App() {
                 {!isFetchingUser && (
                   <Routes>
                     <Route
-                        element={<Book />}
-                        path={`${pageURLs[pages.bookPage]}`}
+                        element={<BooksPage/>}
+                        path={`${pageURLs[pages.books]}`}
                     />
                     <Route
-                        element={<BookDetails />}
-                        path={`${pageURLs[pages.bookDetailsPage]}/:id`}
+                        element={<FormCreate/>}
+                        path={`${pageURLs[pages.formCreate]}`}
                     />
                     <Route
                       element={<DefaultPage />}

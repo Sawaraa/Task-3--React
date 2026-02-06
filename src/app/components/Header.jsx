@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useState } from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import { createUseStyles } from 'react-jss';
 import { useIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
@@ -121,27 +121,49 @@ function Header({
     isUserMenuOpened: false,
   });
 
-  const userName = user.firstName || user.login;
+  const [externalUser, setExternalUser] = useState(null);
+
+  useEffect(() => {
+    fetch(`${process.env.REACT_APP_API_URL}/profile`, {
+      credentials: 'include'
+    })
+        .then(res => {
+          if (res.ok) return res.json();
+          throw new Error('Not logged in');
+        })
+        .then(data => {
+          console.log("Profile data received:", data); // Подивись у консоль!
+          if (data && data.username) {
+            setExternalUser(data.username); // Зберігаємо саме рядок з іменем
+          }
+        })
+        .catch(() => {
+          setExternalUser(null);
+        });
+  }, []);
+
+  // Використовуємо displayUserName для відображення
+  const displayUserName = externalUser || user.firstName || user.login || "User";
+
 
   const actualOrderedRightPanelItemTypes = useMemo(() => {
     const result = [];
-    if (user.isAuthorized) {
+
+    // Якщо externalUser має значення (не null), то ми авторизовані
+    if (externalUser || user.isAuthorized) {
       result.push(rightPanelItemTypes.USER_NAME);
-    } else if (
-      !user.isFetchingUser
-      && currentPage !== pages.login
-    ) {
+    } else {
       result.push(rightPanelItemTypes.LOGIN);
     }
+
     result.push(rightPanelItemTypes.LANGUAGE);
+
     return result.reduce((acc, item, index) => {
-      if (index > 0) {
-        acc.push(rightPanelItemTypes.SEPARATOR);
-      }
+      if (index > 0) acc.push(rightPanelItemTypes.SEPARATOR);
       acc.push(item);
       return acc;
     }, []);
-  }, [user, currentPage]);
+  }, [externalUser, user.isAuthorized]);
 
   return (
     <div className={classes.container}>
@@ -161,13 +183,6 @@ function Header({
                 <Logo compact={isMobile} />
               </div>
             </Hover>
-          </Link>
-
-          {/*Link Book*/}
-          <Link
-              to={{pathname: `${pagesURLs[pages.bookPage]}`, }}
-          >
-            <div className={classes.bookLink}>Book</div>
           </Link>
         </div>
         <div className={classes.toolBarContainerRight}>
@@ -195,10 +210,10 @@ function Header({
                           {!isMobile
                             ? (
                               <strong>
-                                {userName}
+                                {displayUserName}
                               </strong>
                             )
-                            : userName
+                            : displayUserName
                           }
                         </Typography>
                       </div>
@@ -207,11 +222,10 @@ function Header({
                 </div>
               )}
               {itemType === rightPanelItemTypes.LOGIN && (
-                <Link
-                  to={{
-                    pathname: `${pagesURLs[pages.login]}`,
-                  }}
-                >
+                  <a
+                      href={`${process.env.REACT_APP_API_URL}/oauth2/authorization/google`}
+                      style={{ textDecoration: 'none' }}
+                  >
                   <Button
                     colorVariant="header"
                     variant="text"
@@ -225,7 +239,7 @@ function Header({
                       </strong>
                     </Typography>
                   </Button>
-                </Link>
+                  </a>
               )}
               {itemType === rightPanelItemTypes.LANGUAGE && (
                 <>

@@ -1,0 +1,14 @@
+{
+  "back": "back",
+  "create": "add new book",
+  "title": "Name book: ",
+  "titleError": "Name is required",
+  "genre": "Genre: ",
+  "genreError": "Genre is required ",
+  "authorError": "Author is required",
+  "author": "Author: ",
+  "descriptionError": "Description required",
+  "description": "Description",
+  "cancel": "cancel"
+
+}

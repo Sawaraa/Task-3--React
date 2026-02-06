@@ -1,0 +1,10 @@
+{
+  "titlePage": "Book catalogue",
+  "create": "add new book",
+  "title": "Name book: ",
+  "id.book": "id",
+  "author": "Author: ",
+  "genre": "Genre: ",
+  "published": "Published: "
+
+}
